@@ -38,7 +38,6 @@ func Toggle() {
 func process(in, out []float32) {
 	fmt.Println(toggle)
 	if toggle == true {
-		fmt.Println("processing")
 		plugin.ProcessAudio(in, out)
 	} else {
 		for i := range out {

@@ -52,8 +52,6 @@ func InitPlugin(path string) {
 
 func ProcessAudio(in, out []float32) {
 
-	fmt.Println("ok")
-
 	signal.WriteFloat32(in, buffer)
 
 	bin.CopyFrom(buffer)
