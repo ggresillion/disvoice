@@ -10,7 +10,7 @@ import (
 
 var streamParameters portaudio.StreamParameters
 var stream *portaudio.Stream
-var currentPlugin *plugin.Plugin
+var toggle bool
 
 func Configure(config config.AudioConfig) {
 	fmt.Println("Initializing portaudio...")
@@ -24,33 +24,26 @@ func Configure(config config.AudioConfig) {
 	fmt.Println("Portaudio initialized")
 }
 
-func StartPlayback() {
-	fmt.Println("Starting playback")
+func Start(cb func(in, out []float32)) {
 	var err error
-	stream, err = portaudio.OpenStream(streamParameters, process)
+	stream, err = portaudio.OpenStream(streamParameters, cb)
 	chk(err)
 	chk(stream.Start())
 }
 
-func SetProcessPlugin(p plugin.Plugin) {
-	currentPlugin = &p
-	chk(stream.Stop())
-	var err error
-	stream, err = portaudio.OpenStream(streamParameters, func(in, out []float32) {
-		process(in, out)
-	})
-	chk(err)
-	chk(stream.Start())
+func Toggle() {
+	toggle = true
 }
 
 func process(in, out []float32) {
-	if currentPlugin == nil {
+	fmt.Println(toggle)
+	if toggle == true {
+		fmt.Println("processing")
+		plugin.ProcessAudio(in, out)
+	} else {
 		for i := range out {
 			out[i] = in[i]
 		}
-	} else {
-		fmt.Println("processing")
-		currentPlugin.ProcessAudio(in, out)
 	}
 }
 

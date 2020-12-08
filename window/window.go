@@ -50,9 +50,7 @@ func Create() w32.HWND {
 }
 
 func Show(hWnd w32.HWND) {
-	w32.ShowWindow(hWnd, w32.SW_SHOWDEFAULT)
-	w32.UpdateWindow(hWnd)
-
+	w32.ShowWindow(hWnd, w32.SW_SHOW)
 	var msg w32.MSG
 	for {
 		if w32.GetMessage(&msg, 0, 0, 0) == 0 {

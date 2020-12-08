@@ -25,26 +25,20 @@ import "C"
 import (
 	"fmt"
 	"ggresillion/disvoice/config"
-	"io/ioutil"
 	"log"
-	"os"
 	"path/filepath"
-	"unsafe"
 
 	"github.com/JamesHovious/w32"
 	"pipelined.dev/audio/vst2"
 	"pipelined.dev/signal"
 )
 
-type Plugin struct {
-	vst vst2.Plugin
-}
-
 var bin vst2.FloatBuffer
 var bout vst2.FloatBuffer
 var buffer signal.Floating
+var plugin *vst2.Plugin
 
-func InitPlugin(path string) Plugin {
+func InitPlugin(path string) {
 	// Open VST library. Library contains a reference to
 	// OS-specific handle, that needs to be freed with Close.
 	vst, err := vst2.Open(pluginPath(path))
@@ -53,18 +47,18 @@ func InitPlugin(path string) Plugin {
 	}
 
 	// Load VST plugin with example callback.
-	plugin := vst.Load(PrinterHostCallback("Received opcode"))
-
-	return Plugin{*plugin}
+	plugin = vst.Load(PrinterHostCallback("Received opcode"))
 }
 
-func (p Plugin) ProcessAudio(in, out []float32) {
+func ProcessAudio(in, out []float32) {
+
+	fmt.Println("ok")
 
 	signal.WriteFloat32(in, buffer)
 
 	bin.CopyFrom(buffer)
 
-	p.vst.ProcessFloat(bin, bout)
+	plugin.ProcessFloat(bin, bout)
 
 	bout.CopyTo(buffer)
 
@@ -92,40 +86,30 @@ func PrinterHostCallback(prefix string) vst2.HostCallbackFunc {
 	}
 }
 
-func initBuffers(config config.AudioConfig) {
-	bin = vst2.NewFloatBuffer(config.Channels, config.BufferLength)
-	bout = vst2.NewFloatBuffer(config.Channels, config.BufferLength)
-	buffer = signal.Allocator{
-		Channels: config.Channels,
-		Length:   config.BufferLength,
-		Capacity: config.BufferLength,
-	}.Float32()
-}
+// func (p Plugin) LoadSettings() {
 
-func (p Plugin) LoadSettings() {
+// 	data, err := ioutil.ReadFile("save.bin")
+// 	chk(err)
+// 	fmt.Println(data[:])
+// 	s := C.CString(string(data[:]))
+// 	p.vst.Dispatch(vst2.EffSetChunk, 0, 4, vst2.Ptr(s), 0)
+// }
 
-	data, err := ioutil.ReadFile("save.bin")
-	chk(err)
-	fmt.Println(data[:])
-	s := C.CString(string(data[:]))
-	p.vst.Dispatch(vst2.EffSetChunk, 0, 4, vst2.Ptr(s), 0)
-}
+// func (p Plugin) SaveSettings() {
 
-func (p Plugin) SaveSettings() {
+// 	var chunk *C.char
+// 	chunkSize := p.vst.Dispatch(vst2.EffGetChunk, 0, 0, vst2.Ptr(&chunk), 0)
+// 	bytes := C.GoBytes(unsafe.Pointer(&chunk), C.int(unsafe.Sizeof(C.int(chunkSize))))
+// 	fmt.Println(bytes)
+// 	ioutil.WriteFile("save.bin", bytes, os.ModeExclusive)
+// }
 
-	var chunk *C.char
-	chunkSize := p.vst.Dispatch(vst2.EffGetChunk, 0, 0, vst2.Ptr(&chunk), 0)
-	bytes := C.GoBytes(unsafe.Pointer(&chunk), C.int(unsafe.Sizeof(C.int(chunkSize))))
-	fmt.Println(bytes)
-	ioutil.WriteFile("save.bin", bytes, os.ModeExclusive)
-}
-
-func (p Plugin) Configure(config config.AudioConfig) {
+func Configure(config config.AudioConfig) {
 
 	// Set sample rate in Hertz.
-	p.vst.SetSampleRate(config.SampleRate)
+	plugin.SetSampleRate(config.SampleRate)
 	// Set channels information.
-	p.vst.SetSpeakerArrangement(
+	plugin.SetSpeakerArrangement(
 		&vst2.SpeakerArrangement{
 			Type:        vst2.SpeakerArrMono,
 			NumChannels: int32(config.Channels),
@@ -136,15 +120,21 @@ func (p Plugin) Configure(config config.AudioConfig) {
 		},
 	)
 	// Set buffer size.
-	p.vst.SetBufferSize(config.BufferLength)
+	plugin.SetBufferSize(config.BufferLength)
 
-	initBuffers(config)
+	bin = vst2.NewFloatBuffer(config.Channels, config.BufferLength)
+	bout = vst2.NewFloatBuffer(config.Channels, config.BufferLength)
+	buffer = signal.Allocator{
+		Channels: config.Channels,
+		Length:   config.BufferLength,
+		Capacity: config.BufferLength,
+	}.Float32()
 
 }
 
-func (p Plugin) Start() {
+func Start() {
 	// Start the plugin.
-	p.vst.Start()
+	plugin.Start()
 }
 
 // pluginPath returns a path to OS-specific plugin. It will panic if OS is
@@ -165,17 +155,20 @@ type rectangle struct {
 	GUI
 */
 
-func (p Plugin) GetEditorRect() (int, int) {
+func GetEditorRect() (int, int) {
 
 	var rect *C.ERect
 
-	p.vst.Dispatch(vst2.EffEditGetRect, 0, 0, vst2.Ptr(&rect), 0)
+	plugin.Dispatch(vst2.EffEditGetRect, 0, 0, vst2.Ptr(&rect), 0)
 
-	return int(rect.right - rect.left), int(rect.bottom - rect.top)
+	width := int(rect.right - rect.left)
+	height := int(rect.bottom - rect.top)
+
+	return width, height
 }
 
-func (p Plugin) OpenGui(handle w32.HWND) {
-	p.vst.Dispatch(vst2.EffEditOpen, 0, 0, vst2.Ptr(handle), 0)
+func OpenGui(handle w32.HWND) {
+	plugin.Dispatch(vst2.EffEditOpen, 0, 0, vst2.Ptr(handle), 0)
 }
 
 func chk(err error) {
