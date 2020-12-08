@@ -40,9 +40,9 @@ type Plugin struct {
 	vst vst2.Plugin
 }
 
-// var bin vst2.DoubleBuffer
-// var bout vst2.DoubleBuffer
-// var buffer signal.Floating
+var bin vst2.FloatBuffer
+var bout vst2.FloatBuffer
+var buffer signal.Floating
 
 func InitPlugin(path string) Plugin {
 	// Open VST library. Library contains a reference to
@@ -58,112 +58,17 @@ func InitPlugin(path string) Plugin {
 	return Plugin{*plugin}
 }
 
-func (p Plugin) ProcessAudio(_, bout []float32) {
+func (p Plugin) ProcessAudio(in, out []float32) {
 
-	// signal.WriteFloat32(in, buffer)
+	signal.WriteFloat32(in, buffer)
 
-	// bin.CopyFrom(buffer)
+	bin.CopyFrom(buffer)
 
-	// p.vst.ProcessDouble(bin, bout)
+	p.vst.ProcessFloat(bin, bout)
 
-	// bout.CopyTo(buffer)
+	bout.CopyTo(buffer)
 
-	// signal.ReadFloat32(buffer, out)
-
-	data := [][]float64{
-		{
-			-0.0027160645,
-			-0.0039978027,
-			-0.0071411133,
-			-0.0065307617,
-			0.0038757324,
-			0.021972656,
-			0.041229248,
-			0.055511475,
-			0.064971924,
-			0.07342529,
-			0.08300781,
-			0.092681885,
-			0.10070801,
-			0.110809326,
-			0.12677002,
-			0.15231323,
-			0.19058228,
-			0.24459839,
-			0.3140869,
-			0.38861084,
-			0.44683838,
-			0.47177124,
-			0.46643066,
-			0.45007324,
-			0.4449768,
-			0.45724487,
-			0.47451782,
-			0.48321533,
-			0.47824097,
-			0.46679688,
-			0.45999146,
-			0.46765137,
-		},
-		{
-			-0.0027160645,
-			-0.0039978027,
-			-0.0071411133,
-			-0.0065307617,
-			0.0038757324,
-			0.021972656,
-			0.041229248,
-			0.055511475,
-			0.064971924,
-			0.07342529,
-			0.08300781,
-			0.092681885,
-			0.10070801,
-			0.110809326,
-			0.12677002,
-			0.15231323,
-			0.19058228,
-			0.24459839,
-			0.3140869,
-			0.38861084,
-			0.44683838,
-			0.47177124,
-			0.46643066,
-			0.45007324,
-			0.4449768,
-			0.45724487,
-			0.47451782,
-			0.48321533,
-			0.47824097,
-			0.46679688,
-			0.45999146,
-			0.46765137,
-		},
-	}
-
-	buffer := signal.Allocator{
-		Channels: len(data),
-		Length:   len(data[0]),
-		Capacity: len(data[0]),
-	}.Float64()
-	signal.WriteStripedFloat64(data, buffer)
-
-	// To process data with plugin, we need to use VST2 buffers.
-	// It's needed because VST SDK was written in C and expected
-	// memory layout differs from Golang slices.
-	// We need two buffers for input and output.
-	in := vst2.NewDoubleBuffer(buffer.Channels(), buffer.Length())
-	defer in.Free()
-	out := vst2.NewDoubleBuffer(buffer.Channels(), buffer.Length())
-	defer out.Free()
-
-	// Fill input with data values.
-	in.CopyFrom(buffer)
-
-	// Process data.
-	p.vst.ProcessDouble(in, out)
-	// Copy processed data.
-	out.CopyTo(buffer)
+	signal.ReadFloat32(buffer, out)
 
 }
 
@@ -188,13 +93,13 @@ func PrinterHostCallback(prefix string) vst2.HostCallbackFunc {
 }
 
 func initBuffers(config config.AudioConfig) {
-	// bin = vst2.NewDoubleBuffer(config.Channels, config.BufferLength)
-	// bout = vst2.NewDoubleBuffer(config.Channels, config.BufferLength)
-	// buffer = signal.Allocator{
-	// 	Channels: config.Channels,
-	// 	Length:   config.BufferLength,
-	// 	Capacity: config.BufferLength,
-	// }.Float32()
+	bin = vst2.NewFloatBuffer(config.Channels, config.BufferLength)
+	bout = vst2.NewFloatBuffer(config.Channels, config.BufferLength)
+	buffer = signal.Allocator{
+		Channels: config.Channels,
+		Length:   config.BufferLength,
+		Capacity: config.BufferLength,
+	}.Float32()
 }
 
 func (p Plugin) LoadSettings() {
@@ -218,20 +123,20 @@ func (p Plugin) SaveSettings() {
 func (p Plugin) Configure(config config.AudioConfig) {
 
 	// Set sample rate in Hertz.
-	p.vst.SetSampleRate(44100)
+	p.vst.SetSampleRate(config.SampleRate)
 	// Set channels information.
 	p.vst.SetSpeakerArrangement(
 		&vst2.SpeakerArrangement{
 			Type:        vst2.SpeakerArrMono,
-			NumChannels: int32(1),
+			NumChannels: int32(config.Channels),
 		},
 		&vst2.SpeakerArrangement{
 			Type:        vst2.SpeakerArrMono,
-			NumChannels: int32(1),
+			NumChannels: int32(config.Channels),
 		},
 	)
 	// Set buffer size.
-	p.vst.SetBufferSize(32)
+	p.vst.SetBufferSize(config.BufferLength)
 
 	initBuffers(config)
 

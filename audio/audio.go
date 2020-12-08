@@ -44,7 +44,6 @@ func SetProcessPlugin(p plugin.Plugin) {
 }
 
 func process(in, out []float32) {
-	fmt.Println()
 	if currentPlugin == nil {
 		for i := range out {
 			out[i] = in[i]
