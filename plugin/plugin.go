@@ -51,14 +51,14 @@ func InitPlugin(path string) {
 }
 
 func ProcessAudio(in, out []float32) {
-
 	signal.WriteFloat32(in, buffer)
 
 	bin.CopyFrom(buffer)
 
-	plugin.ProcessFloat(bin, bout)
-
-	bout.CopyTo(buffer)
+	if plugin.CanProcessFloat32() {
+		plugin.ProcessFloat(bin, bout)
+		bout.CopyTo(buffer)
+	}
 
 	signal.ReadFloat32(buffer, out)
 
@@ -167,6 +167,10 @@ func GetEditorRect() (int, int) {
 
 func OpenGui(handle w32.HWND) {
 	plugin.Dispatch(vst2.EffEditOpen, 0, 0, vst2.Ptr(handle), 0)
+}
+
+func Stop() {
+	plugin.Stop()
 }
 
 func chk(err error) {
