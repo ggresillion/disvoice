@@ -6,6 +6,7 @@ import (
 	"ggresillion/disvoice/config"
 	"ggresillion/disvoice/plugin"
 	"ggresillion/disvoice/window"
+	"time"
 )
 
 func main() {
@@ -17,8 +18,11 @@ func main() {
 	plugin.InitPlugin("plugins/TAL-Reverb-4-64.dll")
 	plugin.Configure(config)
 	plugin.Start()
+	width, height := plugin.GetEditorRect()
 
-	audio.Start(plugin.ProcessAudio)
+	time.Sleep(time.Second)
+
+	// audio.Start(plugin.ProcessAudio)
 	// fmt.Println("Setting window size...")
 	// p.GetEditorRect()
 
@@ -30,7 +34,7 @@ func main() {
 	plugin.OpenGui(hwnd)
 	// fmt.Println("Setting window size...")
 	// width, height := p.GetEditorRect()
-	// window.SetSize(hwnd, width, height)
+	window.SetSize(hwnd, width, height)
 	// fmt.Println("Starting window...")
 
 	// p.LoadSettings()
