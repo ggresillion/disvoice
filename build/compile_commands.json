@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/guillaume/Projects/disvoice/build",
+  "command": "x86_64-w64-mingw32-g++ -DUNICODE -I/home/guillaume/Projects/disvoice/include -I/usr/x86_64-w64-mingw32/include -g -Wl,-mwindows -o CMakeFiles/disvoice.dir/src/audio.cpp.o -c /home/guillaume/Projects/disvoice/src/audio.cpp",
+  "file": "/home/guillaume/Projects/disvoice/src/audio.cpp"
+},
+{
+  "directory": "/home/guillaume/Projects/disvoice/build",
+  "command": "x86_64-w64-mingw32-g++ -DUNICODE -I/home/guillaume/Projects/disvoice/include -I/usr/x86_64-w64-mingw32/include -g -Wl,-mwindows -o CMakeFiles/disvoice.dir/src/main.cpp.o -c /home/guillaume/Projects/disvoice/src/main.cpp",
+  "file": "/home/guillaume/Projects/disvoice/src/main.cpp"
+},
+{
+  "directory": "/home/guillaume/Projects/disvoice/build",
+  "command": "x86_64-w64-mingw32-g++ -DUNICODE -I/home/guillaume/Projects/disvoice/include -I/usr/x86_64-w64-mingw32/include -g -Wl,-mwindows -o CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o -c /home/guillaume/Projects/disvoice/src/vst_plugin.cpp",
+  "file": "/home/guillaume/Projects/disvoice/src/vst_plugin.cpp"
+},
+{
+  "directory": "/home/guillaume/Projects/disvoice/build",
+  "command": "x86_64-w64-mingw32-g++ -DUNICODE -I/home/guillaume/Projects/disvoice/include -I/usr/x86_64-w64-mingw32/include -g -Wl,-mwindows -o CMakeFiles/disvoice.dir/src/window.cpp.o -c /home/guillaume/Projects/disvoice/src/window.cpp",
+  "file": "/home/guillaume/Projects/disvoice/src/window.cpp"
+}
+]

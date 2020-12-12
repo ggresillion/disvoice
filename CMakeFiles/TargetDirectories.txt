@@ -1,0 +1,3 @@
+/home/guillaume/Projects/disvoice/CMakeFiles/rebuild_cache.dir
+/home/guillaume/Projects/disvoice/CMakeFiles/edit_cache.dir
+/home/guillaume/Projects/disvoice/CMakeFiles/disvoice.dir
