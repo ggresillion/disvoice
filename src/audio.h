@@ -2,9 +2,16 @@
 
 #include <portaudio.h>
 
-class Audio {
-    public:
-        void start();
-    private:
-        void error(PaError err);
+#include "vst_plugin.h"
+
+class Audio
+{
+public:
+    static void setPlugin(VstPlugin *plugin);
+    void start();
+    void stop();
+
+private:
+    PaStream *stream;
+    void error(PaError err);
 };

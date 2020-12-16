@@ -6,8 +6,82 @@
 
 #IncludeRegexTransform: 
 
+../include/aeffect.h
+string.h
+-
+stdint.h
+-
+
+../include/portaudio.h
+
+/home/guillaume/Projects/disvoice/src/audio.cpp
+portaudio.h
+-
+iostream
+-
+audio.h
+/home/guillaume/Projects/disvoice/src/audio.h
+error.h
+/home/guillaume/Projects/disvoice/src/error.h
+common.h
+/home/guillaume/Projects/disvoice/src/common.h
+
+/home/guillaume/Projects/disvoice/src/audio.h
+portaudio.h
+-
+
+/home/guillaume/Projects/disvoice/src/common.cpp
+locale
+-
+codecvt
+-
+string
+-
+stdio.h
+-
+
+/home/guillaume/Projects/disvoice/src/common.h
+string
+-
+
 /home/guillaume/Projects/disvoice/src/error.h
 stdexcept
+-
+
+/home/guillaume/Projects/disvoice/src/main.cpp
+windows.h
+-
+string
+-
+iostream
+-
+error.h
+/home/guillaume/Projects/disvoice/src/error.h
+vst_plugin.h
+/home/guillaume/Projects/disvoice/src/vst_plugin.h
+audio.h
+/home/guillaume/Projects/disvoice/src/audio.h
+window.h
+/home/guillaume/Projects/disvoice/src/window.h
+
+/home/guillaume/Projects/disvoice/src/vst_plugin.cpp
+vst_plugin.h
+/home/guillaume/Projects/disvoice/src/vst_plugin.h
+error.h
+/home/guillaume/Projects/disvoice/src/error.h
+fstream
+-
+windows.h
+-
+aeffect.h
+-
+
+/home/guillaume/Projects/disvoice/src/vst_plugin.h
+string
+-
+vector
+-
+aeffect.h
 -
 
 /home/guillaume/Projects/disvoice/src/window.cpp
@@ -45,6 +119,8 @@ sdks/_mingw_ddk.h
 /usr/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
 
 /usr/x86_64-w64-mingw32/include/_mingw_mac.h
+
+/usr/x86_64-w64-mingw32/include/_mingw_off_t.h
 
 /usr/x86_64-w64-mingw32/include/_mingw_secapi.h
 
@@ -130,6 +206,10 @@ poppack.h
 _mingw.h
 -
 winapifamily.h
+-
+
+/usr/x86_64-w64-mingw32/include/corecrt_stdio_config.h
+corecrt.h
 -
 
 /usr/x86_64-w64-mingw32/include/corecrt_wstdlib.h
@@ -710,6 +790,10 @@ concurrencysal.h
 
 /usr/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h
 
+/usr/x86_64-w64-mingw32/include/sec_api/stdio_s.h
+stdio.h
+-
+
 /usr/x86_64-w64-mingw32/include/sec_api/stdlib_s.h
 stdlib.h
 -
@@ -786,6 +870,22 @@ _mingw_stdarg.h
 crtdefs.h
 -
 
+/usr/x86_64-w64-mingw32/include/stdint.h
+crtdefs.h
+-
+stddef.h
+-
+
+/usr/x86_64-w64-mingw32/include/stdio.h
+corecrt_stdio_config.h
+-
+_mingw_off_t.h
+-
+swprintf.inl
+-
+sec_api/stdio_s.h
+-
+
 /usr/x86_64-w64-mingw32/include/stdlib.h
 corecrt.h
 -
@@ -816,6 +916,10 @@ apisetcconv.h
 minwindef.h
 -
 winnls.h
+-
+
+/usr/x86_64-w64-mingw32/include/swprintf.inl
+vadefs.h
 -
 
 /usr/x86_64-w64-mingw32/include/synchapi.h

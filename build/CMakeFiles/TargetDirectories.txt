@@ -1,3 +1,5 @@
 /home/guillaume/Projects/disvoice/build/CMakeFiles/rebuild_cache.dir
 /home/guillaume/Projects/disvoice/build/CMakeFiles/edit_cache.dir
 /home/guillaume/Projects/disvoice/build/CMakeFiles/disvoice.dir
+/home/guillaume/Projects/disvoice/build/CMakeFiles/disvoice_autogen_timestamp_deps.dir
+/home/guillaume/Projects/disvoice/build/CMakeFiles/disvoice_autogen.dir

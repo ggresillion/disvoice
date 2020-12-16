@@ -20,10 +20,11 @@
             ],
             "compilerPath": "/usr/bin/x86_64-w64-mingw32-g++",
             "cStandard": "gnu17",
-            "cppStandard": "gnu++14",
+            "cppStandard": "gnu++11",
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/x86_64-w64-mingw32/include/qt/**"
             ]
         }
     ],

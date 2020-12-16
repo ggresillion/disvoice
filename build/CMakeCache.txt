@@ -23,9 +23,6 @@ CMAKE_AR:FILEPATH=/bin/ar
 //No help, variable specified on the command line.
 CMAKE_BUILD_TYPE:STRING=Debug
 
-//Enable/Disable color output during build.
-CMAKE_COLOR_MAKEFILE:BOOL=ON
-
 //No help, variable specified on the command line.
 CMAKE_CXX_COMPILER:FILEPATH=/bin/g++
 
@@ -105,8 +102,8 @@ CMAKE_INSTALL_PREFIX:PATH=/usr/local
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/bin/ld
 
-//Path to a program.
-CMAKE_MAKE_PROGRAM:FILEPATH=/usr/sbin/make
+//Program used to build from build.ninja files.
+CMAKE_MAKE_PROGRAM:FILEPATH=/usr/sbin/ninja
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -208,20 +205,48 @@ CMAKE_STRIP:FILEPATH=/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//pkg-config executable
-PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/sbin/pkg-config
+//The directory containing a CMake configuration file for Qt5Core.
+Qt5Core_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5Core
+
+//The directory containing a CMake configuration file for Qt5Declarative.
+Qt5Declarative_DIR:PATH=Qt5Declarative_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Qt5Gui.
+Qt5Gui_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5Gui
+
+//The directory containing a CMake configuration file for Qt5Network.
+Qt5Network_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5Network
+
+//The directory containing a CMake configuration file for Qt5QmlConfig.
+Qt5QmlConfig_DIR:PATH=Qt5QmlConfig_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Qt5QmlModels.
+Qt5QmlModels_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5QmlModels
+
+//The directory containing a CMake configuration file for Qt5Qml.
+Qt5Qml_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5Qml
+
+//The directory containing a CMake configuration file for Qt5QuickCompiler.
+Qt5QuickCompiler_DIR:PATH=Qt5QuickCompiler_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Qt5Quick.
+Qt5Quick_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5Quick
+
+//The directory containing a CMake configuration file for Qt5Widgets.
+Qt5Widgets_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5Widgets
+
+//The directory containing a CMake configuration file for Qt5.
+Qt5_DIR:PATH=/usr/i686-w64-mingw32/lib/cmake/Qt5
+
+//specifies whether to use static Qt by default (rather than via
+// Static-prefix)
+USE_STATIC_QT_BY_DEFAULT:BOOL=OFF
 
 //Value Computed by CMake
 disvoice_BINARY_DIR:STATIC=/home/guillaume/Projects/disvoice/build
 
 //Value Computed by CMake
 disvoice_SOURCE_DIR:STATIC=/home/guillaume/Projects/disvoice
-
-//Path to a library.
-portaudio-2:FILEPATH=portaudio-2-NOTFOUND
-
-//The directory containing a CMake configuration file for portaudio.
-portaudio_DIR:PATH=portaudio_DIR-NOTFOUND
 
 
 ########################
@@ -240,8 +265,6 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=19
 //Patch version of cmake used to create the current loaded cache
 CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
-//ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
-CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/usr/bin/cmake
 //Path to cpack program executable.
@@ -282,8 +305,6 @@ CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_DLLTOOL
 CMAKE_DLLTOOL-ADVANCED:INTERNAL=1
-//Path to cache edit program executable.
-CMAKE_EDIT_COMMAND:INTERNAL=/usr/bin/ccmake
 //Executable file format
 CMAKE_EXECUTABLE_FORMAT:INTERNAL=ELF
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
@@ -299,7 +320,7 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Name of external makefile project generator.
 CMAKE_EXTRA_GENERATOR:INTERNAL=
 //Name of generator.
-CMAKE_GENERATOR:INTERNAL=Unix Makefiles
+CMAKE_GENERATOR:INTERNAL=Ninja
 //Generator instance identifier.
 CMAKE_GENERATOR_INSTANCE:INTERNAL=
 //Name of generator platform.
@@ -371,85 +392,4 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/sbin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//Details about finding PkgConfig
-FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/sbin/pkg-config][v1.7.3()]
-MY_PKG_CFLAGS:INTERNAL=
-MY_PKG_CFLAGS_I:INTERNAL=
-MY_PKG_CFLAGS_OTHER:INTERNAL=
-MY_PKG_FOUND:INTERNAL=
-MY_PKG_INCLUDEDIR:INTERNAL=
-MY_PKG_LIBDIR:INTERNAL=
-MY_PKG_LIBS:INTERNAL=
-MY_PKG_LIBS_L:INTERNAL=
-MY_PKG_LIBS_OTHER:INTERNAL=
-MY_PKG_LIBS_PATHS:INTERNAL=
-MY_PKG_MODULE_NAME:INTERNAL=
-MY_PKG_PREFIX:INTERNAL=
-MY_PKG_STATIC_CFLAGS:INTERNAL=
-MY_PKG_STATIC_CFLAGS_I:INTERNAL=
-MY_PKG_STATIC_CFLAGS_OTHER:INTERNAL=
-MY_PKG_STATIC_LIBDIR:INTERNAL=
-MY_PKG_STATIC_LIBS:INTERNAL=
-MY_PKG_STATIC_LIBS_L:INTERNAL=
-MY_PKG_STATIC_LIBS_OTHER:INTERNAL=
-MY_PKG_STATIC_LIBS_PATHS:INTERNAL=
-MY_PKG_VERSION:INTERNAL=
-MY_PKG_portaudio-2_INCLUDEDIR:INTERNAL=
-MY_PKG_portaudio-2_LIBDIR:INTERNAL=
-MY_PKG_portaudio-2_PREFIX:INTERNAL=
-MY_PKG_portaudio-2_VERSION:INTERNAL=
-//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
-PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-PKG_OPENCV_CFLAGS:INTERNAL=
-PKG_OPENCV_CFLAGS_I:INTERNAL=
-PKG_OPENCV_CFLAGS_OTHER:INTERNAL=
-PKG_OPENCV_FOUND:INTERNAL=
-PKG_OPENCV_INCLUDEDIR:INTERNAL=
-PKG_OPENCV_LIBDIR:INTERNAL=
-PKG_OPENCV_LIBS:INTERNAL=
-PKG_OPENCV_LIBS_L:INTERNAL=
-PKG_OPENCV_LIBS_OTHER:INTERNAL=
-PKG_OPENCV_LIBS_PATHS:INTERNAL=
-PKG_OPENCV_MODULE_NAME:INTERNAL=
-PKG_OPENCV_PREFIX:INTERNAL=
-PKG_OPENCV_STATIC_CFLAGS:INTERNAL=
-PKG_OPENCV_STATIC_CFLAGS_I:INTERNAL=
-PKG_OPENCV_STATIC_CFLAGS_OTHER:INTERNAL=
-PKG_OPENCV_STATIC_LIBDIR:INTERNAL=
-PKG_OPENCV_STATIC_LIBS:INTERNAL=
-PKG_OPENCV_STATIC_LIBS_L:INTERNAL=
-PKG_OPENCV_STATIC_LIBS_OTHER:INTERNAL=
-PKG_OPENCV_STATIC_LIBS_PATHS:INTERNAL=
-PKG_OPENCV_VERSION:INTERNAL=
-PKG_OPENCV_opencv_INCLUDEDIR:INTERNAL=
-PKG_OPENCV_opencv_LIBDIR:INTERNAL=
-PKG_OPENCV_opencv_PREFIX:INTERNAL=
-PKG_OPENCV_opencv_VERSION:INTERNAL=
-PKG_PORTAUDIO_CFLAGS:INTERNAL=
-PKG_PORTAUDIO_CFLAGS_I:INTERNAL=
-PKG_PORTAUDIO_CFLAGS_OTHER:INTERNAL=
-PKG_PORTAUDIO_FOUND:INTERNAL=
-PKG_PORTAUDIO_INCLUDEDIR:INTERNAL=
-PKG_PORTAUDIO_LIBDIR:INTERNAL=
-PKG_PORTAUDIO_LIBS:INTERNAL=
-PKG_PORTAUDIO_LIBS_L:INTERNAL=
-PKG_PORTAUDIO_LIBS_OTHER:INTERNAL=
-PKG_PORTAUDIO_LIBS_PATHS:INTERNAL=
-PKG_PORTAUDIO_MODULE_NAME:INTERNAL=
-PKG_PORTAUDIO_PREFIX:INTERNAL=
-PKG_PORTAUDIO_STATIC_CFLAGS:INTERNAL=
-PKG_PORTAUDIO_STATIC_CFLAGS_I:INTERNAL=
-PKG_PORTAUDIO_STATIC_CFLAGS_OTHER:INTERNAL=
-PKG_PORTAUDIO_STATIC_LIBDIR:INTERNAL=
-PKG_PORTAUDIO_STATIC_LIBS:INTERNAL=
-PKG_PORTAUDIO_STATIC_LIBS_L:INTERNAL=
-PKG_PORTAUDIO_STATIC_LIBS_OTHER:INTERNAL=
-PKG_PORTAUDIO_STATIC_LIBS_PATHS:INTERNAL=
-PKG_PORTAUDIO_VERSION:INTERNAL=
-PKG_PORTAUDIO_portaudio-2_INCLUDEDIR:INTERNAL=
-PKG_PORTAUDIO_portaudio-2_LIBDIR:INTERNAL=
-PKG_PORTAUDIO_portaudio-2_PREFIX:INTERNAL=
-PKG_PORTAUDIO_portaudio-2_VERSION:INTERNAL=
-__pkg_config_checked_PKG_OPENCV:INTERNAL=1
-__pkg_config_checked_PKG_PORTAUDIO:INTERNAL=1
 

@@ -37,7 +37,7 @@ public:
 	void getEditorRect(int &width, int &height);
 	void openEditor(void *windowHandle);
 
-	void process(float samples[], int count);
+	void process(float *in, float* out, int framesPerBuffer);
 
 private:
 	AEffect *effect;

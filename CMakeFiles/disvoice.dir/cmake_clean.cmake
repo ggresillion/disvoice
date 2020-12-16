@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/disvoice_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/disvoice_autogen.dir/ParseCache.txt"
+  "disvoice_autogen"
+  "CMakeFiles/disvoice.dir/disvoice_autogen/mocs_compilation.cpp.o"
   "CMakeFiles/disvoice.dir/src/audio.cpp.o"
   "CMakeFiles/disvoice.dir/src/common.cpp.o"
   "CMakeFiles/disvoice.dir/src/main.cpp.o"

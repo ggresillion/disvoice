@@ -141,6 +141,9 @@ CMAKE_OBJCOPY:FILEPATH=/usr/sbin/objcopy
 //Path to a program.
 CMAKE_OBJDUMP:FILEPATH=/usr/sbin/objdump
 
+//No help, variable specified on the command line.
+CMAKE_PREFIX_PATH:UNINITIALIZED=/usr/x86_64-w64-mingw32/lib/cmake/Qt5
+
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
 
@@ -217,6 +220,43 @@ CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS:UNINITIALIZED=TRUE
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/sbin/pkg-config
+
+//The directory containing a CMake configuration file for Qt5Core.
+Qt5Core_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5Core
+
+//The directory containing a CMake configuration file for Qt5Declarative.
+Qt5Declarative_DIR:PATH=Qt5Declarative_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Qt5Gui.
+Qt5Gui_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5Gui
+
+//The directory containing a CMake configuration file for Qt5Network.
+Qt5Network_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5Network
+
+//The directory containing a CMake configuration file for Qt5QmlConfig.
+Qt5QmlConfig_DIR:PATH=Qt5QmlConfig_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Qt5QmlModels.
+Qt5QmlModels_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5QmlModels
+
+//The directory containing a CMake configuration file for Qt5Qml.
+Qt5Qml_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5Qml
+
+//The directory containing a CMake configuration file for Qt5QuickCompiler.
+Qt5QuickCompiler_DIR:PATH=Qt5QuickCompiler_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for Qt5Quick.
+Qt5Quick_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5Quick
+
+//The directory containing a CMake configuration file for Qt5Widgets.
+Qt5Widgets_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5Widgets
+
+//The directory containing a CMake configuration file for Qt5.
+Qt5_DIR:PATH=/usr/x86_64-w64-mingw32/lib/cmake/Qt5
+
+//specifies whether to use static Qt by default (rather than via
+// Static-prefix)
+USE_STATIC_QT_BY_DEFAULT:BOOL=OFF
 
 //Value Computed by CMake
 disvoice_BINARY_DIR:STATIC=/home/guillaume/Projects/disvoice

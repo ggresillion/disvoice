@@ -17,12 +17,15 @@
 #include "error.h"
 
 #include <fstream>
-
+#include <iostream>
 #include <windows.h>
-
 #include <aeffect.h>
 
-using VstMain = AEffect* (*)(audioMasterCallback callback);
+using namespace std;
+
+#define SAMPLE_RATE (44100)
+
+using VstMain = AEffect *(*)(audioMasterCallback callback);
 
 VstPlugin::VstPlugin(const std::wstring &path)
 {
@@ -103,7 +106,7 @@ void VstPlugin::start(int sampleRate)
 
 void VstPlugin::getEditorRect(int &width, int &height)
 {
-	ERect **rect = new ERect*;
+	ERect **rect = new ERect *;
 	effect->dispatcher(effect, effEditGetRect, 0, 0, rect, 0);
 
 	width = (*rect)->right - (*rect)->left;
@@ -117,52 +120,49 @@ void VstPlugin::openEditor(void *windowHandle)
 	effect->dispatcher(effect, effEditOpen, 0, 0, windowHandle, 0);
 }
 
-void VstPlugin::process(float samples[], int count)
+void VstPlugin::process(float *inBuffer, float *outBuffer, int framesPerBuffer)
 {
-	// Samples for each channel
-	int channelSamples = count / 2;
 
 	// Move both channels into separate arrays
-	for (int i = 0; i < channelSamples; i++)
+	for (int i = 0; i < framesPerBuffer; i++)
 	{
-		input[0][i] = samples[i * 2];
-		input[1][i] = samples[i * 2 + 1];
+		input[0][i] = inBuffer[i * 2];
+		input[1][i] = inBuffer[i * 2 + 1];
 	}
 
 	if (effect->flags & effFlagsCanReplacing)
 	{
-		effect->processReplacing(effect, rawInput, rawOutput, channelSamples);
+		effect->processReplacing(effect, rawInput, rawOutput, framesPerBuffer);
 	}
 
 	else
 	{
-		effect->__processDeprecated(effect, rawInput, rawOutput, channelSamples);
+		effect->__processDeprecated(effect, rawInput, rawOutput, framesPerBuffer);
 	}
 
 	// Move output back into one array
-	for (int i = 0; i < channelSamples; i++)
+	for (int i = 0; i < framesPerBuffer; i++)
 	{
-		samples[i * 2] = output[0][i];
-		samples[i * 2 + 1] = output[1][i];
+		outBuffer[i * 2] = output[0][i];
+		outBuffer[i * 2 + 1] = output[1][i];
 	}
 }
 
 VstIntPtr VstPlugin::hostCallback(
-	AEffect* effect, 
-	VstInt32 opcode, 
-	VstInt32 index, 
-	VstIntPtr value, 
-	void* ptr, 
-	float opt
-)
+	AEffect *effect,
+	VstInt32 opcode,
+	VstInt32 index,
+	VstIntPtr value,
+	void *ptr,
+	float opt)
 {
 	switch (opcode)
 	{
-		case audioMasterVersion:
-			// VST 2.4
-			return 2400;
+	case audioMasterVersion:
+		// VST 2.4
+		return 2400;
 
-		default:
-			return 0;
+	default:
+		return 0;
 	}
 }

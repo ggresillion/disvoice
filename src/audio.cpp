@@ -1,81 +1,118 @@
 #include <portaudio.h>
+#include <iostream>
 
 #include "audio.h"
 #include "error.h"
 #include "common.h"
+#include "config.h"
 
-#define SAMPLE_RATE (44100)
+using namespace std;
 
 typedef float SAMPLE;
 
-typedef struct {
+typedef struct
+{
     int frameIndex;
     int maxFrameIndex;
     SAMPLE *recordedSample;
 } paData;
 
-void Audio::start()
-{
-    PaStreamParameters inputParameters,
-        outputParameters;
-    PaStream *stream;
-    paData data;
-    PaError err = paNoError;
-    int i;
-    int totalFrames;
-    int numSamples;
-    int numBytes;
-    double average;
-    err = Pa_Initialize();
-    if (err != paNoError)
-        this->error(err);
-    /* Open an audio I/O stream. */
-    err = Pa_OpenDefaultStream(&stream,
-                               0,         /* no input channels */
-                               2,         /* stereo output */
-                               paFloat32, /* 32 bit floating point output */
-                               SAMPLE_RATE,
-                               256,            /* frames per buffer, i.e. the number
-                                                   of sample frames that PortAudio will
-                                                   request from the callback. Many apps
-                                                   may want to use
-                                                   paFramesPerBufferUnspecified, which
-                                                   tells PortAudio to pick the best,
-                                                   possibly changing, buffer size.*/
-                               patestCallback, /* this is your callback function */
-                               &data);         /*This is a pointer that will be passed to
-                                                   your callback*/
-}
+VstPlugin *plugin;
 
 /* This routine will be called by the PortAudio engine when audio is needed.
  * It may called at interrupt level on some machines so don't do anything
  * that could mess up the system like calling malloc() or free().
-*/ 
-static int patestCallback( const void *inputBuffer, void *outputBuffer,
-                           unsigned long framesPerBuffer,
-                           const PaStreamCallbackTimeInfo* timeInfo,
-                           PaStreamCallbackFlags statusFlags,
-                           void *userData )
+*/
+static int patestCallback(const void *inputBuffer, void *outputBuffer,
+                          unsigned long framesPerBuffer,
+                          const PaStreamCallbackTimeInfo *timeInfo,
+                          PaStreamCallbackFlags statusFlags,
+                          void *userData)
 {
     /* Cast data passed through stream to our structure. */
-    void *data = (paData*)userData; 
-    float *out = (float*)outputBuffer;
-    unsigned int i;
-    (void) inputBuffer; /* Prevent unused variable warning. */
-    
-    for( i=0; i<framesPerBuffer; i++ )
+    float *in = (float *)inputBuffer;
+    float *out = (float *)outputBuffer;
+
+    if (plugin != NULL)
     {
-         out++ = data->left_phase;  /* left */
-         out++ = data->right_phase;  /* right */
-        /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-        data->left_phase += 0.01f;
-        /* When signal reaches top, drop back down. */
-        if( data->left_phase >= 1.0f ) data->left_phase -= 2.0f;
-        /* higher pitch so we can distinguish left and right. */
-        data->right_phase += 0.03f;
-        if( data->right_phase >= 1.0f ) data->right_phase -= 2.0f;
+        plugin->process(in, out, framesPerBuffer);
+        return 0;
+    }
+
+    for (unsigned int i = 0; i < framesPerBuffer; i++)
+    {
+        *out++ = *in++; /* left */
+        *out++ = *in++; /* right */
     }
     return 0;
+}
+
+void Audio::start()
+{
+    PaStreamParameters inputParameters, outputParameters;
+    PaStream *stream;
+    PaError err;
+
+    err = Pa_Initialize();
+    if (err != paNoError)
+        this->error(err);
+
+    inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
+    if (inputParameters.device == paNoDevice)
+    {
+        fprintf(stderr, "Error: No default input device.\n");
+        this->error(err);
+    }
+    inputParameters.channelCount = 2; /* stereo input */
+    inputParameters.sampleFormat = PA_SAMPLE_TYPE;
+    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
+    inputParameters.hostApiSpecificStreamInfo = NULL;
+
+    outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+    if (outputParameters.device == paNoDevice)
+    {
+        fprintf(stderr, "Error: No default output device.\n");
+        this->error(err);
+    }
+    outputParameters.channelCount = 2; /* stereo output */
+    outputParameters.sampleFormat = PA_SAMPLE_TYPE;
+    outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
+    outputParameters.hostApiSpecificStreamInfo = NULL;
+    cout << "Portaudio initialized" << endl;
+    /* Open an audio I/O stream. */
+    err = Pa_OpenStream(
+        &stream,
+        &inputParameters,
+        &outputParameters,
+        SAMPLE_RATE,
+        FRAMES_PER_BUFFER,
+        0, /* paClipOff, */ /* we won't output out of range samples so don't bother clipping them */
+        patestCallback,
+        NULL);
+    if (err != paNoError)
+        this->error(err);
+    cout << "Portaudio stream created" << endl;
+    err = Pa_StartStream(stream);
+    if (err != paNoError)
+        this->error(err);
+    cout << "Portaudio stream started" << endl;
+}
+
+void Audio::stop()
+{
+    PaError err = paNoError;
+    err = Pa_CloseStream(stream);
+    if (err != paNoError)
+        this->error(err);
+    err = Pa_Terminate();
+    if (err != paNoError)
+        this->error(err);
+}
+
+
+void Audio::setPlugin(VstPlugin *p)
+{
+    plugin = p;
 }
 
 void Audio::error(PaError err)

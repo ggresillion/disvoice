@@ -142,6 +142,46 @@ disvoice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/build
 .PHONY : disvoice/fast
 
+#=============================================================================
+# Target rules for targets named disvoice_autogen
+
+# Build rule for target.
+disvoice_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 disvoice_autogen
+.PHONY : disvoice_autogen
+
+# fast build rule for target.
+disvoice_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice_autogen.dir/build.make CMakeFiles/disvoice_autogen.dir/build
+.PHONY : disvoice_autogen/fast
+
+disvoice_autogen/mocs_compilation.o: disvoice_autogen/mocs_compilation.cpp.o
+
+.PHONY : disvoice_autogen/mocs_compilation.o
+
+# target to build an object file
+disvoice_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/disvoice_autogen/mocs_compilation.cpp.o
+.PHONY : disvoice_autogen/mocs_compilation.cpp.o
+
+disvoice_autogen/mocs_compilation.i: disvoice_autogen/mocs_compilation.cpp.i
+
+.PHONY : disvoice_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+disvoice_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/disvoice_autogen/mocs_compilation.cpp.i
+.PHONY : disvoice_autogen/mocs_compilation.cpp.i
+
+disvoice_autogen/mocs_compilation.s: disvoice_autogen/mocs_compilation.cpp.s
+
+.PHONY : disvoice_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+disvoice_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/disvoice_autogen/mocs_compilation.cpp.s
+.PHONY : disvoice_autogen/mocs_compilation.cpp.s
+
 src/audio.o: src/audio.cpp.o
 
 .PHONY : src/audio.o
@@ -285,7 +325,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... disvoice_autogen"
 	@echo "... disvoice"
+	@echo "... disvoice_autogen/mocs_compilation.o"
+	@echo "... disvoice_autogen/mocs_compilation.i"
+	@echo "... disvoice_autogen/mocs_compilation.s"
 	@echo "... src/audio.o"
 	@echo "... src/audio.i"
 	@echo "... src/audio.s"

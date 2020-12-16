@@ -89,9 +89,22 @@ CMakeFiles/disvoice.dir/src/audio.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/disvoice.dir/src/audio.cpp.s"
 	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/guillaume/Projects/disvoice/src/audio.cpp -o CMakeFiles/disvoice.dir/src/audio.cpp.s
 
+CMakeFiles/disvoice.dir/src/common.cpp.o: CMakeFiles/disvoice.dir/flags.make
+CMakeFiles/disvoice.dir/src/common.cpp.o: ../src/common.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/disvoice.dir/src/common.cpp.o"
+	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/disvoice.dir/src/common.cpp.o -c /home/guillaume/Projects/disvoice/src/common.cpp
+
+CMakeFiles/disvoice.dir/src/common.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/disvoice.dir/src/common.cpp.i"
+	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/guillaume/Projects/disvoice/src/common.cpp > CMakeFiles/disvoice.dir/src/common.cpp.i
+
+CMakeFiles/disvoice.dir/src/common.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/disvoice.dir/src/common.cpp.s"
+	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/guillaume/Projects/disvoice/src/common.cpp -o CMakeFiles/disvoice.dir/src/common.cpp.s
+
 CMakeFiles/disvoice.dir/src/main.cpp.o: CMakeFiles/disvoice.dir/flags.make
 CMakeFiles/disvoice.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/disvoice.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/disvoice.dir/src/main.cpp.o"
 	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/disvoice.dir/src/main.cpp.o -c /home/guillaume/Projects/disvoice/src/main.cpp
 
 CMakeFiles/disvoice.dir/src/main.cpp.i: cmake_force
@@ -104,7 +117,7 @@ CMakeFiles/disvoice.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o: CMakeFiles/disvoice.dir/flags.make
 CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o: ../src/vst_plugin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o"
 	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o -c /home/guillaume/Projects/disvoice/src/vst_plugin.cpp
 
 CMakeFiles/disvoice.dir/src/vst_plugin.cpp.i: cmake_force
@@ -117,7 +130,7 @@ CMakeFiles/disvoice.dir/src/vst_plugin.cpp.s: cmake_force
 
 CMakeFiles/disvoice.dir/src/window.cpp.o: CMakeFiles/disvoice.dir/flags.make
 CMakeFiles/disvoice.dir/src/window.cpp.o: ../src/window.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/disvoice.dir/src/window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/disvoice.dir/src/window.cpp.o"
 	x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/disvoice.dir/src/window.cpp.o -c /home/guillaume/Projects/disvoice/src/window.cpp
 
 CMakeFiles/disvoice.dir/src/window.cpp.i: cmake_force
@@ -131,6 +144,7 @@ CMakeFiles/disvoice.dir/src/window.cpp.s: cmake_force
 # Object files for target disvoice
 disvoice_OBJECTS = \
 "CMakeFiles/disvoice.dir/src/audio.cpp.o" \
+"CMakeFiles/disvoice.dir/src/common.cpp.o" \
 "CMakeFiles/disvoice.dir/src/main.cpp.o" \
 "CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o" \
 "CMakeFiles/disvoice.dir/src/window.cpp.o"
@@ -139,13 +153,14 @@ disvoice_OBJECTS = \
 disvoice_EXTERNAL_OBJECTS =
 
 disvoice: CMakeFiles/disvoice.dir/src/audio.cpp.o
+disvoice: CMakeFiles/disvoice.dir/src/common.cpp.o
 disvoice: CMakeFiles/disvoice.dir/src/main.cpp.o
 disvoice: CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o
 disvoice: CMakeFiles/disvoice.dir/src/window.cpp.o
 disvoice: CMakeFiles/disvoice.dir/build.make
 disvoice: /usr/local/lib/libportaudio-2.dll
 disvoice: CMakeFiles/disvoice.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable disvoice"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/guillaume/Projects/disvoice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable disvoice"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/disvoice.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
