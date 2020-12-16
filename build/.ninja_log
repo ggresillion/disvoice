@@ -1,0 +1,8 @@
+# ninja log v5
+145	2104	1608060076780000000	CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o	342245a76eb4ec78
+144	2067	1608060076700000000	CMakeFiles/disvoice.dir/src/main.cpp.o	8540edf8c0960902
+145	1755	1608060076430000000	CMakeFiles/disvoice.dir/src/window.cpp.o	21aeefc797bf6867
+141	789	1608060075460000000	CMakeFiles/disvoice.dir/src/common.cpp.o	4040b64829f2d5a0
+141	691	1608060075360000000	CMakeFiles/disvoice.dir/src/audio.cpp.o	9d87cf6b45d803d4
+140	176	1608060074840000000	CMakeFiles/disvoice.dir/disvoice_autogen/mocs_compilation.cpp.o	856e199857b1cd2b
+0	140	1608060074810000000	disvoice_autogen/timestamp	38269a589612ea69
