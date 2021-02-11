@@ -1,3 +1,1 @@
-/usr/bin/cmake -E rm -f CMakeFiles/disvoice.dir/objects.a
-/usr/sbin/x86_64-w64-mingw32-ar cr CMakeFiles/disvoice.dir/objects.a @CMakeFiles/disvoice.dir/objects1.rsp
-/usr/sbin/x86_64-w64-mingw32-g++  -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive -Wl,--whole-archive CMakeFiles/disvoice.dir/objects.a -Wl,--no-whole-archive -o disvoice.exe -Wl,--out-implib,libdisvoice.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/disvoice.dir/linklibs.rsp
+/bin/c++ -g  -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive CMakeFiles/disvoice.dir/src/audio.cpp.o CMakeFiles/disvoice.dir/src/effect.cpp.o CMakeFiles/disvoice.dir/src/logger.cpp.o CMakeFiles/disvoice.dir/src/main.cpp.o CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o CMakeFiles/disvoice.dir/src/window.cpp.o -o disvoice  -lportaudio -static-libgcc -static-libstdc++ -lwsock32 -lws2_32  

@@ -3,7 +3,6 @@
 
 #include "audio.h"
 #include "error.h"
-#include "common.h"
 #include "config.h"
 #include "logger.h"
 
@@ -75,12 +74,12 @@ void Audio::start()
                       : outputInfo->maxOutputChannels;
 
     inputParameters.channelCount = numChannels;
-    inputParameters.sampleFormat = PA_SAMPLE_TYPE;
+    inputParameters.sampleFormat = SAMPLE_TYPE;
     inputParameters.suggestedLatency = inputInfo->defaultHighInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
 
     outputParameters.channelCount = numChannels;
-    outputParameters.sampleFormat = PA_SAMPLE_TYPE;
+    outputParameters.sampleFormat = SAMPLE_TYPE;
     outputParameters.suggestedLatency = outputInfo->defaultHighOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 

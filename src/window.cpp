@@ -26,7 +26,7 @@ void Window::create()
 
 	if (handle == nullptr)
 	{
-		throw Error(L"Error creating window");
+		throw Error("Error creating window");
 	}
 }
 
@@ -84,7 +84,7 @@ void Window::initWindowClass()
 
 	if (!RegisterClassEx(&windowClass))
 	{
-		throw Error(L"Error registering window class");
+		throw Error("Error registering window class");
 	}
 }
 
@@ -97,7 +97,7 @@ RECT Window::calcDimensions()
 
 	if (!AdjustWindowRect(&rect, WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX, false))
 	{
-		throw Error(L"Error calculating window size");
+		throw Error("Error calculating window size");
 	}
 
 	return rect;

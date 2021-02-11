@@ -142,14 +142,14 @@ disvoice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/build
 .PHONY : disvoice/fast
 
-src/audio.obj: src/audio.cpp.obj
+src/audio.o: src/audio.cpp.o
 
-.PHONY : src/audio.obj
+.PHONY : src/audio.o
 
 # target to build an object file
-src/audio.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/audio.cpp.obj
-.PHONY : src/audio.cpp.obj
+src/audio.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/audio.cpp.o
+.PHONY : src/audio.cpp.o
 
 src/audio.i: src/audio.cpp.i
 
@@ -169,41 +169,14 @@ src/audio.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/audio.cpp.s
 .PHONY : src/audio.cpp.s
 
-src/common.obj: src/common.cpp.obj
+src/effect.o: src/effect.cpp.o
 
-.PHONY : src/common.obj
-
-# target to build an object file
-src/common.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/common.cpp.obj
-.PHONY : src/common.cpp.obj
-
-src/common.i: src/common.cpp.i
-
-.PHONY : src/common.i
-
-# target to preprocess a source file
-src/common.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/common.cpp.i
-.PHONY : src/common.cpp.i
-
-src/common.s: src/common.cpp.s
-
-.PHONY : src/common.s
-
-# target to generate assembly for a file
-src/common.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/common.cpp.s
-.PHONY : src/common.cpp.s
-
-src/effect.obj: src/effect.cpp.obj
-
-.PHONY : src/effect.obj
+.PHONY : src/effect.o
 
 # target to build an object file
-src/effect.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/effect.cpp.obj
-.PHONY : src/effect.cpp.obj
+src/effect.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/effect.cpp.o
+.PHONY : src/effect.cpp.o
 
 src/effect.i: src/effect.cpp.i
 
@@ -223,14 +196,14 @@ src/effect.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/effect.cpp.s
 .PHONY : src/effect.cpp.s
 
-src/logger.obj: src/logger.cpp.obj
+src/logger.o: src/logger.cpp.o
 
-.PHONY : src/logger.obj
+.PHONY : src/logger.o
 
 # target to build an object file
-src/logger.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/logger.cpp.obj
-.PHONY : src/logger.cpp.obj
+src/logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/logger.cpp.o
+.PHONY : src/logger.cpp.o
 
 src/logger.i: src/logger.cpp.i
 
@@ -250,14 +223,14 @@ src/logger.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/logger.cpp.s
 .PHONY : src/logger.cpp.s
 
-src/main.obj: src/main.cpp.obj
+src/main.o: src/main.cpp.o
 
-.PHONY : src/main.obj
+.PHONY : src/main.o
 
 # target to build an object file
-src/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/main.cpp.obj
-.PHONY : src/main.cpp.obj
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
 
@@ -277,14 +250,14 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/vst_plugin.obj: src/vst_plugin.cpp.obj
+src/vst_plugin.o: src/vst_plugin.cpp.o
 
-.PHONY : src/vst_plugin.obj
+.PHONY : src/vst_plugin.o
 
 # target to build an object file
-src/vst_plugin.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/vst_plugin.cpp.obj
-.PHONY : src/vst_plugin.cpp.obj
+src/vst_plugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o
+.PHONY : src/vst_plugin.cpp.o
 
 src/vst_plugin.i: src/vst_plugin.cpp.i
 
@@ -304,14 +277,14 @@ src/vst_plugin.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/vst_plugin.cpp.s
 .PHONY : src/vst_plugin.cpp.s
 
-src/window.obj: src/window.cpp.obj
+src/window.o: src/window.cpp.o
 
-.PHONY : src/window.obj
+.PHONY : src/window.o
 
 # target to build an object file
-src/window.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/window.cpp.obj
-.PHONY : src/window.cpp.obj
+src/window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/window.cpp.o
+.PHONY : src/window.cpp.o
 
 src/window.i: src/window.cpp.i
 
@@ -340,25 +313,22 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... disvoice"
-	@echo "... src/audio.obj"
+	@echo "... src/audio.o"
 	@echo "... src/audio.i"
 	@echo "... src/audio.s"
-	@echo "... src/common.obj"
-	@echo "... src/common.i"
-	@echo "... src/common.s"
-	@echo "... src/effect.obj"
+	@echo "... src/effect.o"
 	@echo "... src/effect.i"
 	@echo "... src/effect.s"
-	@echo "... src/logger.obj"
+	@echo "... src/logger.o"
 	@echo "... src/logger.i"
 	@echo "... src/logger.s"
-	@echo "... src/main.obj"
+	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/vst_plugin.obj"
+	@echo "... src/vst_plugin.o"
 	@echo "... src/vst_plugin.i"
 	@echo "... src/vst_plugin.s"
-	@echo "... src/window.obj"
+	@echo "... src/window.o"
 	@echo "... src/window.i"
 	@echo "... src/window.s"
 .PHONY : help

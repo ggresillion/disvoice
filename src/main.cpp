@@ -55,7 +55,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
     }
     catch (Error err)
     {
-        wcout << err.getMessage() << "\n";
+        cout << err.getMessage() << "\n";
     }
 
     return 0;

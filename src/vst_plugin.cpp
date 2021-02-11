@@ -31,7 +31,7 @@ VstPlugin::VstPlugin(const std::string &path) : path(path)
 	if (library == nullptr)
 	{
 		std::cout << GetLastError() << std::endl;
-		throw Error(L"Error loading plugin");
+		throw Error("Error loading plugin");
 	}
 
 	FARPROC mainAddress = GetProcAddress(library, "VSTPluginMain");
@@ -43,24 +43,24 @@ VstPlugin::VstPlugin(const std::string &path) : path(path)
 
 	if (mainAddress == nullptr)
 	{
-		throw Error(L"Plugin entry point not found");
+		throw Error("Plugin entry point not found");
 	}
 
 	effect = reinterpret_cast<VstMain>(mainAddress)(hostCallback);
 
 	if (effect == nullptr)
 	{
-		throw Error(L"Plugin initialization failed");
+		throw Error("Plugin initialization failed");
 	}
 
 	if (effect->magic != kEffectMagic)
 	{
-		throw Error(L"Plugin magic number mismatch");
+		throw Error("Plugin magic number mismatch");
 	}
 
 	if (effect->numOutputs > 2)
 	{
-		throw Error(L"Plugin has more than 2 output channels");
+		throw Error("Plugin has more than 2 output channels");
 	}
 
 	size_t fileIndex = path.find_last_of(L'/');
