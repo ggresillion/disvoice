@@ -23,27 +23,28 @@ VstPlugin *plugin;
  * It may called at interrupt level on some machines so don't do anything
  * that could mess up the system like calling malloc() or free().
 */
-static int patestCallback(const void *inputBuffer, void *outputBuffer,
-                          unsigned long framesPerBuffer,
-                          const PaStreamCallbackTimeInfo *timeInfo,
-                          PaStreamCallbackFlags statusFlags,
-                          void *userData)
+static int paCallback(const void *inputBuffer, void *outputBuffer,
+                      unsigned long framesPerBuffer,
+                      const PaStreamCallbackTimeInfo *timeInfo,
+                      PaStreamCallbackFlags statusFlags,
+                      void *userData)
 {
     /* Cast data passed through stream to our structure. */
-    float *in = (float *)inputBuffer;
-    float *out = (float *)outputBuffer;
+    SAMPLE *out = (SAMPLE *)outputBuffer;
+    const SAMPLE *in = (const SAMPLE *)inputBuffer;
+
+    for (int i = 0; i < framesPerBuffer; i++)
+    {
+        *out++ = in[i];
+        *out++ = in[i];
+    }
 
     if (plugin != NULL)
     {
-        plugin->process(in, out, framesPerBuffer);
+        plugin->process(out, framesPerBuffer);
         return 0;
     }
 
-    for (unsigned int i = 0; i < framesPerBuffer; i++)
-    {
-        *out++ = *in++; /* left */
-        *out++ = *in++; /* right */
-    }
     return 0;
 }
 
@@ -57,24 +58,39 @@ void Audio::start()
     if (err != paNoError)
         this->error(err);
 
+    inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
+    if (inputParameters.device == paNoDevice)
+    {
+        fprintf(stderr, "Error: No default input device.\n");
+    }
+    inputParameters.channelCount = 1; /* stereo input */
+    inputParameters.sampleFormat = SAMPLE_TYPE;
+    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
+    inputParameters.hostApiSpecificStreamInfo = NULL;
+
+    outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+    if (outputParameters.device == paNoDevice)
+    {
+        fprintf(stderr, "Error: No default output device.\n");
+    }
+    outputParameters.channelCount = 2; /* stereo output */
+    outputParameters.sampleFormat = SAMPLE_TYPE;
+    outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
+    outputParameters.hostApiSpecificStreamInfo = NULL;
+
     /* Open an audio I/O stream. */
-    err = Pa_OpenDefaultStream(&stream,
-                               0,         /* no input channels */
-                               2,         /* stereo output */
-                               paFloat32, /* 32 bit floating point output */
-                               SAMPLE_RATE,
-                               256,            /* frames per buffer, i.e. the number
-                                                   of sample frames that PortAudio will
-                                                   request from the callback. Many apps
-                                                   may want to use
-                                                   paFramesPerBufferUnspecified, which
-                                                   tells PortAudio to pick the best,
-                                                   possibly changing, buffer size.*/
-                               patestCallback, /* this is your callback function */
-                               NULL);         /*This is a pointer that will be passed to
-                                                   your callback*/
+    err = Pa_OpenStream(&stream,
+                        &inputParameters,
+                        &outputParameters,
+                        SAMPLE_RATE,
+                        FRAMES_PER_BUFFER,
+                        0,
+                        paCallback,
+                        NULL);
+
     if (err != paNoError)
         this->error(err);
+
     cout << "Portaudio stream created" << endl;
     err = Pa_StartStream(stream);
     if (err != paNoError)

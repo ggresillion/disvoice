@@ -31,15 +31,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 {
     try
     {
-        cout << "creating window"
-             << "\n";
         VstPlugin *plugin = new VstPlugin(L"../plugins/TAL-Reverb-4-64.dll");
         plugin->start(44100);
+
         Audio *audio = new Audio();
+        audio->start();
         audio->setPlugin(plugin);
 
         int width, height;
-
         plugin->getEditorRect(width, height);
 
         Window *window = new Window(hInstance, WindowProc);

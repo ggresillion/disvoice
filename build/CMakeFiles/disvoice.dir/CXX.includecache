@@ -6,11 +6,31 @@
 
 #IncludeRegexTransform: 
 
+/home/guillaume/disvoice/src/audio.cpp
+portaudio.h
+-
+iostream
+-
+audio.h
+/home/guillaume/disvoice/src/audio.h
+error.h
+/home/guillaume/disvoice/src/error.h
+common.h
+/home/guillaume/disvoice/src/common.h
+config.h
+/home/guillaume/disvoice/src/config.h
+
 /home/guillaume/disvoice/src/audio.h
 portaudio.h
 -
 vst_plugin.h
 /home/guillaume/disvoice/src/vst_plugin.h
+
+/home/guillaume/disvoice/src/common.h
+string
+-
+
+/home/guillaume/disvoice/src/config.h
 
 /home/guillaume/disvoice/src/error.h
 stdexcept
@@ -18,38 +38,12 @@ stdexcept
 iostream
 -
 
-/home/guillaume/disvoice/src/main.cpp
-windows.h
--
-string
--
-iostream
--
-functional
--
-string
--
-error.h
-/home/guillaume/disvoice/src/error.h
-vst_plugin.h
-/home/guillaume/disvoice/src/vst_plugin.h
-audio.h
-/home/guillaume/disvoice/src/audio.h
-window.h
-/home/guillaume/disvoice/src/window.h
-
 /home/guillaume/disvoice/src/vst_plugin.h
 string
 -
 vector
 -
 aeffect.h
--
-
-/home/guillaume/disvoice/src/window.h
-string
--
-windows.h
 -
 
 /usr/x86_64-w64-mingw32/local/include/aeffect.h

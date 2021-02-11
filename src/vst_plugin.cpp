@@ -120,14 +120,14 @@ void VstPlugin::openEditor(void *windowHandle)
 	effect->dispatcher(effect, effEditOpen, 0, 0, windowHandle, 0);
 }
 
-void VstPlugin::process(float *inBuffer, float *outBuffer, int framesPerBuffer)
+void VstPlugin::process(float *buffer, int framesPerBuffer)
 {
 
 	// Move both channels into separate arrays
 	for (int i = 0; i < framesPerBuffer; i++)
 	{
-		input[0][i] = inBuffer[i * 2];
-		input[1][i] = inBuffer[i * 2 + 1];
+		input[0][i] = buffer[i * 2];
+		input[1][i] = buffer[i * 2];
 	}
 
 	if (effect->flags & effFlagsCanReplacing)
@@ -143,8 +143,8 @@ void VstPlugin::process(float *inBuffer, float *outBuffer, int framesPerBuffer)
 	// Move output back into one array
 	for (int i = 0; i < framesPerBuffer; i++)
 	{
-		outBuffer[i * 2] = output[0][i];
-		outBuffer[i * 2 + 1] = output[1][i];
+		buffer[i * 2] = output[0][i];
+		buffer[i * 2 + 1] = output[1][i];
 	}
 }
 
