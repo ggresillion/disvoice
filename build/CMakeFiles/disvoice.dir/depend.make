@@ -6,6 +6,7 @@ CMakeFiles/disvoice.dir/src/audio.cpp.obj: ../src/audio.h
 CMakeFiles/disvoice.dir/src/audio.cpp.obj: ../src/common.h
 CMakeFiles/disvoice.dir/src/audio.cpp.obj: ../src/config.h
 CMakeFiles/disvoice.dir/src/audio.cpp.obj: ../src/error.h
+CMakeFiles/disvoice.dir/src/audio.cpp.obj: ../src/logger.h
 CMakeFiles/disvoice.dir/src/audio.cpp.obj: ../src/vst_plugin.h
 CMakeFiles/disvoice.dir/src/audio.cpp.obj: /usr/x86_64-w64-mingw32/local/include/aeffect.h
 CMakeFiles/disvoice.dir/src/audio.cpp.obj: /usr/x86_64-w64-mingw32/local/include/portaudio.h

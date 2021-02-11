@@ -6,37 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/guillaume/disvoice/src/audio.cpp
-portaudio.h
--
-iostream
--
-audio.h
-/home/guillaume/disvoice/src/audio.h
-error.h
-/home/guillaume/disvoice/src/error.h
-common.h
-/home/guillaume/disvoice/src/common.h
-config.h
-/home/guillaume/disvoice/src/config.h
-
-/home/guillaume/disvoice/src/audio.h
-portaudio.h
--
-vst_plugin.h
-/home/guillaume/disvoice/src/vst_plugin.h
-
-/home/guillaume/disvoice/src/common.h
-string
--
-
-/home/guillaume/disvoice/src/config.h
-
 /home/guillaume/disvoice/src/error.h
 stdexcept
 -
 iostream
 -
+
+/home/guillaume/disvoice/src/vst_plugin.cpp
+windows.h
+-
+aeffect.h
+-
+iostream
+-
+vst_plugin.h
+/home/guillaume/disvoice/src/vst_plugin.h
+error.h
+/home/guillaume/disvoice/src/error.h
 
 /home/guillaume/disvoice/src/vst_plugin.h
 string
@@ -51,6 +37,4 @@ string.h
 -
 stdint.h
 -
-
-/usr/x86_64-w64-mingw32/local/include/portaudio.h
 

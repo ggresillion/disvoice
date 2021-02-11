@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "vst_plugin.h"
-#include "error.h"
-
-#include <fstream>
-#include <iostream>
 #include <windows.h>
 #include <aeffect.h>
+#include <iostream>
 
-using namespace std;
+#include "vst_plugin.h"
+#include "error.h"
 
 #define SAMPLE_RATE (44100)
 
 using VstMain = AEffect *(*)(audioMasterCallback callback);
 
-VstPlugin::VstPlugin(const std::wstring &path)
+VstPlugin::VstPlugin(const std::string &path) : path(path)
 {
-	HMODULE library = LoadLibrary(path.c_str());
+	HMODULE library = LoadLibraryA(path.c_str());
 
 	if (library == nullptr)
 	{
-		throw Error(L"Error loading plugin: " + path);
+		std::cout << GetLastError() << std::endl;
+		throw Error(L"Error loading plugin");
 	}
 
 	FARPROC mainAddress = GetProcAddress(library, "VSTPluginMain");
@@ -65,7 +63,6 @@ VstPlugin::VstPlugin(const std::wstring &path)
 		throw Error(L"Plugin has more than 2 output channels");
 	}
 
-	// Find plugin name
 	size_t fileIndex = path.find_last_of(L'/');
 
 	if (fileIndex == std::wstring::npos)
@@ -76,9 +73,10 @@ VstPlugin::VstPlugin(const std::wstring &path)
 	size_t extIndex = path.find_last_of(L'.');
 
 	name = path.substr(fileIndex + 1, extIndex - fileIndex - 1);
+
 }
 
-std::wstring VstPlugin::getName() const
+std::string VstPlugin::getName() const
 {
 	return name;
 }
@@ -102,6 +100,7 @@ void VstPlugin::start(int sampleRate)
 	effect->dispatcher(effect, effSetSampleRate, 0, 0, nullptr, static_cast<float>(sampleRate));
 	effect->dispatcher(effect, effSetBlockSize, 0, blockSize, nullptr, 0);
 	effect->dispatcher(effect, effMainsChanged, 0, 1, nullptr, 0);
+
 }
 
 void VstPlugin::getEditorRect(int &width, int &height)
@@ -120,14 +119,14 @@ void VstPlugin::openEditor(void *windowHandle)
 	effect->dispatcher(effect, effEditOpen, 0, 0, windowHandle, 0);
 }
 
-void VstPlugin::process(float *buffer, int framesPerBuffer)
+void VstPlugin::process(float *inBuffer, float *outBuffer, int size)
 {
-
+	int framesPerBuffer = size / 2;
 	// Move both channels into separate arrays
 	for (int i = 0; i < framesPerBuffer; i++)
 	{
-		input[0][i] = buffer[i * 2];
-		input[1][i] = buffer[i * 2];
+		input[0][i] = inBuffer[i * 2];
+		input[1][i] = inBuffer[i * 2 + 1];
 	}
 
 	if (effect->flags & effFlagsCanReplacing)
@@ -143,8 +142,8 @@ void VstPlugin::process(float *buffer, int framesPerBuffer)
 	// Move output back into one array
 	for (int i = 0; i < framesPerBuffer; i++)
 	{
-		buffer[i * 2] = output[0][i];
-		buffer[i * 2 + 1] = output[1][i];
+		outBuffer[i * 2] = output[0][i];
+		outBuffer[i * 2 + 1] = output[1][i];
 	}
 }
 

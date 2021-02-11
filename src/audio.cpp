@@ -5,6 +5,7 @@
 #include "error.h"
 #include "common.h"
 #include "config.h"
+#include "logger.h"
 
 using namespace std;
 
@@ -23,28 +24,27 @@ VstPlugin *plugin;
  * It may called at interrupt level on some machines so don't do anything
  * that could mess up the system like calling malloc() or free().
 */
-static int paCallback(const void *inputBuffer, void *outputBuffer,
-                      unsigned long framesPerBuffer,
-                      const PaStreamCallbackTimeInfo *timeInfo,
-                      PaStreamCallbackFlags statusFlags,
-                      void *userData)
+static int patestCallback(const void *inputBuffer, void *outputBuffer,
+                          unsigned long framesPerBuffer,
+                          const PaStreamCallbackTimeInfo *timeInfo,
+                          PaStreamCallbackFlags statusFlags,
+                          void *userData)
 {
     /* Cast data passed through stream to our structure. */
-    SAMPLE *out = (SAMPLE *)outputBuffer;
-    const SAMPLE *in = (const SAMPLE *)inputBuffer;
-
-    for (int i = 0; i < framesPerBuffer; i++)
-    {
-        *out++ = in[i];
-        *out++ = in[i];
-    }
+    float *in = (float *)inputBuffer;
+    float *out = (float *)outputBuffer;
 
     if (plugin != NULL)
     {
-        plugin->process(out, framesPerBuffer);
+        plugin->process(in, out, framesPerBuffer);
         return 0;
     }
 
+    for (unsigned int i = 0; i < framesPerBuffer; i++)
+    {
+        *out++ = *in++; /* left */
+        *out++ = *in++; /* right */
+    }
     return 0;
 }
 
@@ -53,44 +53,47 @@ void Audio::start()
     PaStreamParameters inputParameters, outputParameters;
     PaStream *stream;
     PaError err;
+    const PaDeviceInfo* inputInfo;
+    const PaDeviceInfo* outputInfo;
+    int numChannels;
 
     err = Pa_Initialize();
     if (err != paNoError)
         this->error(err);
 
     inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
-    if (inputParameters.device == paNoDevice)
-    {
-        fprintf(stderr, "Error: No default input device.\n");
-    }
-    inputParameters.channelCount = 1; /* stereo input */
-    inputParameters.sampleFormat = SAMPLE_TYPE;
-    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
-    inputParameters.hostApiSpecificStreamInfo = NULL;
+    inputInfo = Pa_GetDeviceInfo(inputParameters.device);
 
     outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
-    if (outputParameters.device == paNoDevice)
-    {
-        fprintf(stderr, "Error: No default output device.\n");
-    }
-    outputParameters.channelCount = 2; /* stereo output */
-    outputParameters.sampleFormat = SAMPLE_TYPE;
-    outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
+    outputInfo = Pa_GetDeviceInfo(outputParameters.device);
+
+    numChannels = inputInfo->maxInputChannels < outputInfo->maxOutputChannels
+                      ? inputInfo->maxInputChannels
+                      : outputInfo->maxOutputChannels;
+
+    inputParameters.channelCount = numChannels;
+    inputParameters.sampleFormat = PA_SAMPLE_TYPE;
+    inputParameters.suggestedLatency = inputInfo->defaultHighInputLatency;
+    inputParameters.hostApiSpecificStreamInfo = NULL;
+
+    outputParameters.channelCount = numChannels;
+    outputParameters.sampleFormat = PA_SAMPLE_TYPE;
+    outputParameters.suggestedLatency = outputInfo->defaultHighOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
+    cout << "Portaudio initialized" << endl;
     /* Open an audio I/O stream. */
-    err = Pa_OpenStream(&stream,
-                        &inputParameters,
-                        &outputParameters,
-                        SAMPLE_RATE,
-                        FRAMES_PER_BUFFER,
-                        0,
-                        paCallback,
-                        NULL);
-
+    err = Pa_OpenStream(
+        &stream,
+        &inputParameters,
+        &outputParameters,
+        SAMPLE_RATE,
+        FRAMES_PER_BUFFER,
+        0, /* paClipOff, */ /* we won't output out of range samples so don't bother clipping them */
+        patestCallback,
+        NULL);
     if (err != paNoError)
         this->error(err);
-
     cout << "Portaudio stream created" << endl;
     err = Pa_StartStream(stream);
     if (err != paNoError)
@@ -117,5 +120,5 @@ void Audio::setPlugin(VstPlugin *p)
 void Audio::error(PaError err)
 {
     Pa_Terminate();
-    throw new Error(charToWString(Pa_GetErrorText(err)));
+    // throw new Error(Pa_GetErrorText(err));
 }

@@ -31,7 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR pCmdLine, int nCmdShow)
 {
     try
     {
-        VstPlugin *plugin = new VstPlugin(L"../plugins/TAL-Reverb-4-64.dll");
+        VstPlugin *plugin = new VstPlugin("../plugins/TAL-Reverb-4-64.dll");
         plugin->start(44100);
 
         Audio *audio = new Audio();

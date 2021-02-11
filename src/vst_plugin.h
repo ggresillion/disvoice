@@ -25,9 +25,9 @@ struct AEffect;
 class VstPlugin
 {
 public:
-	VstPlugin(const std::wstring &path);
+	VstPlugin(const std::string &path);
 
-	std::wstring getName() const;
+	std::string getName() const;
 
 	void loadSettings();
 	void saveSettings();
@@ -37,11 +37,12 @@ public:
 	void getEditorRect(int &width, int &height);
 	void openEditor(void *windowHandle);
 
-	void process(float *buffer, int framesPerBuffer);
+	void process(float *in, float* out, int framesPerBuffer);
 
 private:
 	AEffect *effect;
-	std::wstring name;
+	std::string name;
+	std::string path;
 
 	std::vector<std::vector<float>> input, output;
 	float *rawInput[2], *rawOutput[2];

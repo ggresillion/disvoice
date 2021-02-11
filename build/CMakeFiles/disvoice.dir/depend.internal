@@ -7,6 +7,7 @@ CMakeFiles/disvoice.dir/src/audio.cpp.obj
  /home/guillaume/disvoice/src/common.h
  /home/guillaume/disvoice/src/config.h
  /home/guillaume/disvoice/src/error.h
+ /home/guillaume/disvoice/src/logger.h
  /home/guillaume/disvoice/src/vst_plugin.h
  /usr/x86_64-w64-mingw32/local/include/aeffect.h
  /usr/x86_64-w64-mingw32/local/include/portaudio.h

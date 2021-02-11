@@ -1,4 +1,4 @@
 
 #define SAMPLE_RATE (44100)
-#define SAMPLE_TYPE paFloat32
+#define PA_SAMPLE_TYPE paFloat32
 #define FRAMES_PER_BUFFER (64)
