@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/guillaume/Projects/disvoice
+CMAKE_SOURCE_DIR = /home/guillaume/disvoice
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/guillaume/Projects/disvoice/build
+CMAKE_BINARY_DIR = /home/guillaume/disvoice/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Projects/disvoice/build/CMakeFiles /home/guillaume/Projects/disvoice/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/disvoice/build/CMakeFiles /home/guillaume/disvoice/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Projects/disvoice/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/disvoice/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,14 +142,14 @@ disvoice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/build
 .PHONY : disvoice/fast
 
-src/audio.o: src/audio.cpp.o
+src/audio.obj: src/audio.cpp.obj
 
-.PHONY : src/audio.o
+.PHONY : src/audio.obj
 
 # target to build an object file
-src/audio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/audio.cpp.o
-.PHONY : src/audio.cpp.o
+src/audio.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/audio.cpp.obj
+.PHONY : src/audio.cpp.obj
 
 src/audio.i: src/audio.cpp.i
 
@@ -169,14 +169,14 @@ src/audio.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/audio.cpp.s
 .PHONY : src/audio.cpp.s
 
-src/common.o: src/common.cpp.o
+src/common.obj: src/common.cpp.obj
 
-.PHONY : src/common.o
+.PHONY : src/common.obj
 
 # target to build an object file
-src/common.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/common.cpp.o
-.PHONY : src/common.cpp.o
+src/common.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/common.cpp.obj
+.PHONY : src/common.cpp.obj
 
 src/common.i: src/common.cpp.i
 
@@ -196,14 +196,68 @@ src/common.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/common.cpp.s
 .PHONY : src/common.cpp.s
 
-src/main.o: src/main.cpp.o
+src/effect.obj: src/effect.cpp.obj
 
-.PHONY : src/main.o
+.PHONY : src/effect.obj
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/effect.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/effect.cpp.obj
+.PHONY : src/effect.cpp.obj
+
+src/effect.i: src/effect.cpp.i
+
+.PHONY : src/effect.i
+
+# target to preprocess a source file
+src/effect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/effect.cpp.i
+.PHONY : src/effect.cpp.i
+
+src/effect.s: src/effect.cpp.s
+
+.PHONY : src/effect.s
+
+# target to generate assembly for a file
+src/effect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/effect.cpp.s
+.PHONY : src/effect.cpp.s
+
+src/logger.obj: src/logger.cpp.obj
+
+.PHONY : src/logger.obj
+
+# target to build an object file
+src/logger.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/logger.cpp.obj
+.PHONY : src/logger.cpp.obj
+
+src/logger.i: src/logger.cpp.i
+
+.PHONY : src/logger.i
+
+# target to preprocess a source file
+src/logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/logger.cpp.i
+.PHONY : src/logger.cpp.i
+
+src/logger.s: src/logger.cpp.s
+
+.PHONY : src/logger.s
+
+# target to generate assembly for a file
+src/logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/logger.cpp.s
+.PHONY : src/logger.cpp.s
+
+src/main.obj: src/main.cpp.obj
+
+.PHONY : src/main.obj
+
+# target to build an object file
+src/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/main.cpp.obj
+.PHONY : src/main.cpp.obj
 
 src/main.i: src/main.cpp.i
 
@@ -223,14 +277,14 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/vst_plugin.o: src/vst_plugin.cpp.o
+src/vst_plugin.obj: src/vst_plugin.cpp.obj
 
-.PHONY : src/vst_plugin.o
+.PHONY : src/vst_plugin.obj
 
 # target to build an object file
-src/vst_plugin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/vst_plugin.cpp.o
-.PHONY : src/vst_plugin.cpp.o
+src/vst_plugin.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/vst_plugin.cpp.obj
+.PHONY : src/vst_plugin.cpp.obj
 
 src/vst_plugin.i: src/vst_plugin.cpp.i
 
@@ -250,14 +304,14 @@ src/vst_plugin.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/vst_plugin.cpp.s
 .PHONY : src/vst_plugin.cpp.s
 
-src/window.o: src/window.cpp.o
+src/window.obj: src/window.cpp.obj
 
-.PHONY : src/window.o
+.PHONY : src/window.obj
 
 # target to build an object file
-src/window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/window.cpp.o
-.PHONY : src/window.cpp.o
+src/window.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/disvoice.dir/build.make CMakeFiles/disvoice.dir/src/window.cpp.obj
+.PHONY : src/window.cpp.obj
 
 src/window.i: src/window.cpp.i
 
@@ -286,19 +340,25 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... disvoice"
-	@echo "... src/audio.o"
+	@echo "... src/audio.obj"
 	@echo "... src/audio.i"
 	@echo "... src/audio.s"
-	@echo "... src/common.o"
+	@echo "... src/common.obj"
 	@echo "... src/common.i"
 	@echo "... src/common.s"
-	@echo "... src/main.o"
+	@echo "... src/effect.obj"
+	@echo "... src/effect.i"
+	@echo "... src/effect.s"
+	@echo "... src/logger.obj"
+	@echo "... src/logger.i"
+	@echo "... src/logger.s"
+	@echo "... src/main.obj"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/vst_plugin.o"
+	@echo "... src/vst_plugin.obj"
 	@echo "... src/vst_plugin.i"
 	@echo "... src/vst_plugin.s"
-	@echo "... src/window.o"
+	@echo "... src/window.obj"
 	@echo "... src/window.i"
 	@echo "... src/window.s"
 .PHONY : help

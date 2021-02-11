@@ -1,1 +1,0 @@
-x86_64-w64-mingw32-g++ -fPIC -g -shared -Wl,-soname,libportaudio-2.so -o libportaudio-2.so   -L/usr/local/lib  -static-libgcc -static-libstdc++ -lwsock32 -lws2_32  

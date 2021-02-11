@@ -57,38 +57,22 @@ void Audio::start()
     if (err != paNoError)
         this->error(err);
 
-    inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
-    if (inputParameters.device == paNoDevice)
-    {
-        fprintf(stderr, "Error: No default input device.\n");
-        this->error(err);
-    }
-    inputParameters.channelCount = 2; /* stereo input */
-    inputParameters.sampleFormat = PA_SAMPLE_TYPE;
-    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
-    inputParameters.hostApiSpecificStreamInfo = NULL;
-
-    outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
-    if (outputParameters.device == paNoDevice)
-    {
-        fprintf(stderr, "Error: No default output device.\n");
-        this->error(err);
-    }
-    outputParameters.channelCount = 2; /* stereo output */
-    outputParameters.sampleFormat = PA_SAMPLE_TYPE;
-    outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
-    outputParameters.hostApiSpecificStreamInfo = NULL;
-    cout << "Portaudio initialized" << endl;
     /* Open an audio I/O stream. */
-    err = Pa_OpenStream(
-        &stream,
-        &inputParameters,
-        &outputParameters,
-        SAMPLE_RATE,
-        FRAMES_PER_BUFFER,
-        0, /* paClipOff, */ /* we won't output out of range samples so don't bother clipping them */
-        patestCallback,
-        NULL);
+    err = Pa_OpenDefaultStream(&stream,
+                               0,         /* no input channels */
+                               2,         /* stereo output */
+                               paFloat32, /* 32 bit floating point output */
+                               SAMPLE_RATE,
+                               256,            /* frames per buffer, i.e. the number
+                                                   of sample frames that PortAudio will
+                                                   request from the callback. Many apps
+                                                   may want to use
+                                                   paFramesPerBufferUnspecified, which
+                                                   tells PortAudio to pick the best,
+                                                   possibly changing, buffer size.*/
+                               patestCallback, /* this is your callback function */
+                               NULL);         /*This is a pointer that will be passed to
+                                                   your callback*/
     if (err != paNoError)
         this->error(err);
     cout << "Portaudio stream created" << endl;
@@ -108,7 +92,6 @@ void Audio::stop()
     if (err != paNoError)
         this->error(err);
 }
-
 
 void Audio::setPlugin(VstPlugin *p)
 {

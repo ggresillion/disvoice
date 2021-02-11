@@ -17,13 +17,19 @@
 #pragma once
 
 #include <stdexcept>
+#include <iostream>
+
+using namespace std;
 
 class Error : std::exception
 {
 public:
-	Error(const std::wstring &message) : message(message) {}
+	Error(const std::wstring &message) : message(message)
+	{
+		wcout << message << endl;
+	}
 
-	const std::wstring& getMessage() const
+	const std::wstring &getMessage() const
 	{
 		return message;
 	}
