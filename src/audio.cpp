@@ -24,11 +24,11 @@ VstPlugin *plugin;
  * It may called at interrupt level on some machines so don't do anything
  * that could mess up the system like calling malloc() or free().
 */
-static int patestCallback(const void *inputBuffer, void *outputBuffer,
-                          unsigned long framesPerBuffer,
-                          const PaStreamCallbackTimeInfo *timeInfo,
-                          PaStreamCallbackFlags statusFlags,
-                          void *userData)
+static int paCallback(const void *inputBuffer, void *outputBuffer,
+                      unsigned long framesPerBuffer,
+                      const PaStreamCallbackTimeInfo *timeInfo,
+                      PaStreamCallbackFlags statusFlags,
+                      void *userData)
 {
     /* Cast data passed through stream to our structure. */
     float *in = (float *)inputBuffer;
@@ -53,13 +53,16 @@ void Audio::start()
     PaStreamParameters inputParameters, outputParameters;
     PaStream *stream;
     PaError err;
-    const PaDeviceInfo* inputInfo;
-    const PaDeviceInfo* outputInfo;
+    const PaDeviceInfo *inputInfo;
+    const PaDeviceInfo *outputInfo;
     int numChannels;
 
     err = Pa_Initialize();
     if (err != paNoError)
+    {
         this->error(err);
+    }
+    Logger::info("Portaudio initialized");
 
     inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
     inputInfo = Pa_GetDeviceInfo(inputParameters.device);
@@ -81,7 +84,6 @@ void Audio::start()
     outputParameters.suggestedLatency = outputInfo->defaultHighOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
-    cout << "Portaudio initialized" << endl;
     /* Open an audio I/O stream. */
     err = Pa_OpenStream(
         &stream,
@@ -89,16 +91,17 @@ void Audio::start()
         &outputParameters,
         SAMPLE_RATE,
         FRAMES_PER_BUFFER,
-        0, /* paClipOff, */ /* we won't output out of range samples so don't bother clipping them */
-        patestCallback,
+        0,
+        paCallback,
         NULL);
     if (err != paNoError)
         this->error(err);
-    cout << "Portaudio stream created" << endl;
+    Logger::info("Portaudio stream created");
+
     err = Pa_StartStream(stream);
     if (err != paNoError)
         this->error(err);
-    cout << "Portaudio stream started" << endl;
+    Logger::info("Portaudio stream started");
 }
 
 void Audio::stop()
@@ -120,5 +123,5 @@ void Audio::setPlugin(VstPlugin *p)
 void Audio::error(PaError err)
 {
     Pa_Terminate();
-    // throw new Error(Pa_GetErrorText(err));
+    throw new Error(Pa_GetErrorText(err));
 }

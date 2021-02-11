@@ -24,15 +24,15 @@ using namespace std;
 class Error : std::exception
 {
 public:
-	Error(const std::wstring &message) : message(message)
+	Error(const std::string &message) : message(message)
 	{
-		wcout << message << endl;
+		cout << message << endl;
 	}
 
-	const std::wstring &getMessage() const
+	const std::string &getMessage() const
 	{
 		return message;
 	}
 
-	std::wstring message;
+	std::string message;
 };
