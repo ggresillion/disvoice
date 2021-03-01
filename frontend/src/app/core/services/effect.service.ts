@@ -17,7 +17,7 @@ export class EffectService {
 
   public getEffects(): Observable<Effect[]> {
     return this.configService.getConfig()
-      .pipe(map(config => config.effects));
+    .pipe(map(c => c.effects));
   }
 
   public toggleEffect(id: string): Observable<void> {

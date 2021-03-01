@@ -9,20 +9,23 @@ export class BackendService {
 
   constructor() { }
 
-  public getBackend(): any {
-    // @ts-ignore
-    return window.backend;
-  }
-
   public getConfig(): Observable<Config> {
-    return from<ObservableInput<Config>>(this.getBackend().getConfig());
+    // @ts-ignore
+    return from<ObservableInput<void>>(getConfig());
   }
 
   public toggleEffect(id: string): Observable<void> {
-    return from<ObservableInput<void>>(this.getBackend().toggleEffect(id));
+    // @ts-ignore
+    return from<ObservableInput<void>>(toggleEffect(id));
   }
 
   public showSettings(id: string): Observable<void> {
-    return from<ObservableInput<void>>(this.getBackend().showSettings(id));
+    // @ts-ignore
+    return from<ObservableInput<void>>(showSettings(id));
+  }
+
+  public startAudio(): Observable<void> {
+    // @ts-ignore
+    return from<ObservableInput<void>>(startAudio());
   }
 }

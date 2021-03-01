@@ -14,15 +14,22 @@ export class EffectsComponent implements OnInit {
   constructor(private readonly effectService: EffectService) { }
 
   public ngOnInit(): void {
-    this.effectService.getEffects().subscribe(e => this.effects = e);
+    this.effectService.getEffects().subscribe(e => {
+      this.effects = e;
+      console.log(e);
+    });
   }
 
   public toggleEffect(effect: Effect) {
-    this.effectService.toggleEffect(effect.id).subscribe();
+    this.effectService.toggleEffect(effect.id).subscribe(() => {
+      console.log('Toggled effect: ' + effect.name);
+    });
   }
 
   public showSettings(effect: Effect) {
-    this.effectService.showSettings(effect.id).subscribe();
+    this.effectService.showSettings(effect.id).subscribe(() => {
+      console.log('Opened settings: ' + effect.name);
+    });
   }
 
 }
