@@ -1,65 +1,50 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net"
-	"net/http"
-	"os"
-	"os/signal"
-	"runtime"
-
-	"github.com/zserge/lorca"
+	"github.com/ggresillion/disvoice/backend"
+	"github.com/ggresillion/disvoice/plugin"
+	"github.com/leaanthony/mewn"
+	"github.com/wailsapp/wails"
 )
 
+func start() {
+	plugin.Start()
+}
+
+func getConfig() backend.Config {
+	return *backend.GetConfig()
+}
+
+func toggleEffect(id string) {
+	effect := backend.GetConfig().GetEffect(id)
+	backend.GetConfig().GetPlugin(effect.PluginID).Load()
+	effect.ToggleEffect()
+}
+
+func showSettings(id string) {
+	effect := backend.GetConfig().GetEffect(id)
+	plugin := backend.GetConfig().GetPlugin(effect.PluginID)
+	plugin.Load()
+	plugin.Open()
+}
+
 func main() {
-	cliArgs := os.Args[1:]
-	args := []string{}
-	if runtime.GOOS == "linux" {
-		args = append(args, "--class=Lorca")
-	}
-	ui, err := lorca.New("", "", 800, 800, args...)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer ui.Close()
 
-	bindFunctions(ui)
+	js := mewn.String("./frontend/dist/my-app/main.js")
+	css := mewn.String("./frontend/dist/my-app/styles.scss")
 
-	fmt.Println(cliArgs)
-
-	if cliArgs[0] == "--dev" {
-		serveDev(ui)
-	} else {
-		serveProd(ui)
-	}
-
-	sigc := make(chan os.Signal)
-	signal.Notify(sigc, os.Interrupt)
-	select {
-	case <-sigc:
-	case <-ui.Done():
-	}
-
-	log.Println("exiting...")
-}
-
-func serveProd(ui lorca.UI) {
-	// Start listener
-	ln, err := net.Listen("tcp", "127.0.0.1:0")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer ln.Close()
-
-	// Serve 'dist' directory created when building your project
-	go http.Serve(ln, http.FileServer(http.Dir("./frontend/dist/my-app")))
-
-	ui.Load(fmt.Sprintf("http://%s", ln.Addr()))
-
-	fmt.Println("Serving on " + fmt.Sprintf("http://%s", ln.Addr()))
-}
-
-func serveDev(ui lorca.UI) {
-	ui.Load("http://localhost:4200")
+	app := wails.CreateApp(&wails.AppConfig{
+		Width:  1024,
+		Height: 768,
+		Title:  "disvoice",
+		JS:     js,
+		CSS:    css,
+		Colour: "#131313",
+	})
+	app.Bind(start)
+	app.Bind(toggleEffect)
+	app.Bind(getConfig)
+	app.Bind(showSettings)
+	plugin.Start()
+	app.Run()
 }

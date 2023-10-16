@@ -13,10 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    EffectsComponent
-  ],
+  declarations: [HomeComponent, EffectsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
